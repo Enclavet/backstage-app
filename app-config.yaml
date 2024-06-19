@@ -34,14 +34,14 @@ backend:
 
 integrations:
   gitea:
-    - baseUrl: https://gitea.cnoe.localtest.me:8443
-      host: gitea.cnoe.localtest.me:8443
+    - baseUrl: https://cnoe.localtest.me:8443/gitea
+      host: cnoe.localtest.me:8443
       username: giteaAdmin
-      password: giteaPassword
-    - baseUrl: https://gitea.cnoe.localtest.me
-      host: gitea.cnoe.localtest.me:8443
+      password: t*3FaLYoS(>|c62'k~Z+_e&F2]\$siw@65q1lX%1
+    - baseUrl: https://cnoe.localtest.me/gitea
+      host: cnoe.localtest.me:8443
       username: giteaAdmin
-      password: giteaPassword
+      password: t*3FaLYoS(>|c62'k~Z+_e&F2]\$siw@65q1lX%1
 
 proxy:
   ### Example for how to add a proxy endpoint for the frontend.
@@ -70,9 +70,9 @@ auth:
   providers:
     keycloak-oidc:
       development:
-        metadataUrl: https://keycloak.cnoe.localtest.me:8443/realms/cnoe/.well-known/openid-configuration
+        metadataUrl: https://cnoe.localtest.me:8443/keycloak/realms/cnoe/.well-known/openid-configuration
         clientId: backstage
-        clientSecret: ${KEYCLOAK_CLIENT_SECRET}
+        clientSecret: ZRDD6KE9Np6M70LJXqsAlfZtGTq9JOy9
         scope: 'openid profile email groups'
         prompt: auto
 
@@ -90,8 +90,11 @@ catalog:
     - allow: [ Component, System, API, Resource, Location, Template ]
   locations:
     - type: url
-      target: https://gitea.cnoe.localtest.me:8443/giteaAdmin/entities/src/branch/main/catalog-info.yaml
-
+      target: https://cnoe.localtest.me:8443/gitea/giteaAdmin/idpbuilder-localdev-backstage-templates-entities/src/branch/main/catalog-info.yaml
+    - type: url
+      target: https://github.com/cnoe-io/backstage-terraform-integrations/blob/main/backstage-templates-for-eks/catalog-info.yaml
+      rules:
+        - allow: [User, Group]
 #    # Local example template
 #    - type: file
 #      target: ../../examples/template/template.yaml
@@ -119,20 +122,20 @@ kubernetes:
   clusterLocatorMethods:
     - type: 'config'
       clusters:
-        - url: https://127.0.0.1:33277 # you may need to change this
+        - url: https://127.0.0.1:45679 # you may need to change this
           name: local
           authProvider: 'serviceAccount'
           skipTLSVerify: true
           # replace with your own service account token value. e.g. kubectl -n backstage exec -it deploy/backstage  -- cat /var/run/secrets/kubernetes.io/serviceaccount/token
-          serviceAccountToken: eyJhbG......
+          serviceAccountToken: eyJhbGciOiJSUzI1NiIsImtpZCI6IjBFTWxjanFVS3B1UmVnYllLTlRjY3hjQlY5OTFpOHZLRnRLM0pSRUFlaVUifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzQ5MTM4OTkxLCJpYXQiOjE3MTc2MDI5OTEsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJiYWNrc3RhZ2UiLCJwb2QiOnsibmFtZSI6ImJhY2tzdGFnZS01Y2RjNDdiZmY4LWhtNnQ1IiwidWlkIjoiYmE5MWMwNTktMDdiOS00ZDE4LWEwMDQtMDU1NjA5ODFkZDhhIn0sInNlcnZpY2VhY2NvdW50Ijp7Im5hbWUiOiJiYWNrc3RhZ2UiLCJ1aWQiOiJjMjFkZDg1YS1hNzEyLTRjMDktOGI3Zi0xMGY2YjI1ODYwYWYifSwid2FybmFmdGVyIjoxNzE3NjA2NTk4fSwibmJmIjoxNzE3NjAyOTkxLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6YmFja3N0YWdlOmJhY2tzdGFnZSJ9.CnrZQalRO8CcA0j2NhxbNeI_ELA1arfeUTuq-poCyz0VNZdf4i4SshVMh4RyGesYGx-0nq4tSIlyUgyKWh2m1NfSWpUwY8XruP-4dFgT1tlagqrwmAbonaEb0CU9ItWBsS9xqWZZtEOtBplHdHqXFkkNm6sOrqw-K6MuchX9WDkSFSrWkEL1v9tJeGDNibog9F8EAqOJ7otANbdVt1ay5jMrKCJkNV4jdAcrel5ZmtbzY1GuSzVgog6lVlnpBe_4s0mPdilagngdqNHuIC_KaQQmTNATSQf2WiAkLYfn3G82pr-eMGDgope8sL3sJs_co-ZnbEvr11d8XH8Jh2dnLQ
 argocd:
   appLocatorMethods:
     - type: 'config'
       instances:
         - name: in-cluster
-          url: https://argocd.cnoe.localtest.me:8443
+          url: https://cnoe.localtest.me:8443/argocd
           username: admin
           # replace with your argocd password e.g. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-          password: ${ARGOCD_ADMIN_PASSWORD}
+          password: 22t36oIJPF8XgINP
 argoWorkflows:
-  baseUrl: https://argo.cnoe.localtest.me:8443
+  baseUrl: https://cnoe.localtest.me:8443/argo
